@@ -29,7 +29,14 @@ List<Book> topBorrowed(List<Book> books, int topN) {
 }
 
 Future<void> main(List<String> arguments) async {
-  final books = await loadBooks('data/books.json');
+  const dataPath = 'data/books.json';
+
+  if (!await File(dataPath).exists()) {
+    print('数据文件缺失，请检查data/books.json');
+    return;
+  }
+
+  final books = await loadBooks(dataPath);
 
   print('总数：${books.length}');
 
